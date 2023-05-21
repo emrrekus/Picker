@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     private int pointBallCount;
     private int checkPointCount;
     private int currentCheckPointIndex;
+    private float handPosX;
     
   [SerializeField]  public List<BallAreaTechinical> _BallAreaTechinicals = new List<BallAreaTechinical>();
     
@@ -55,6 +56,28 @@ public class GameManager : MonoBehaviour
 
             if (Time.timeScale != 0)
             {
+               /* if (Input.touchCount > 0)
+                {
+                    Touch touch = Input.GetTouch(0);
+                    Vector3 TouchPosition =
+                        UnityEngine.Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y,
+                            10f));
+                    switch (touch.phase)
+                    {
+                        case TouchPhase.Began:
+                            handPosX = TouchPosition.x - pickerObject.transform.position.x;
+                            break;
+                        case  TouchPhase.Moved:
+                            if (TouchPosition.x - handPosX > -1.15 && TouchPosition.x -  handPosX < 1.15)
+                            {
+                                pickerObject.transform.position = Vector3.Lerp(pickerObject.transform.position,
+                                    new Vector3(TouchPosition.x - handPosX, pickerObject.transform.position.y,
+                                        pickerObject.transform.position.z), 3f);
+                            }
+                            break;
+                        
+                    }
+                }*/
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
                     pickerObject.transform.position= Vector3.Lerp(pickerObject.transform.position,new Vector3(pickerObject.transform.position.x -.1f,pickerObject.transform.position.y,pickerObject.transform.position.z),.05f);
