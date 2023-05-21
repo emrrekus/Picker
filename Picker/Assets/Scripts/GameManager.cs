@@ -32,8 +32,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pickerMoveCase = true;
+        for (int i = 0; i < _BallAreaTechinicals.Count; i++)
+        {
+            _BallAreaTechinicals[i].numberText.text = pointBallCount + "/" + _BallAreaTechinicals[i].needBall;
+        }
+       
+        
 
-        _BallAreaTechinicals[0].numberText.text = pointBallCount + "/" + _BallAreaTechinicals[0].needBall;
+        checkPointCount = _BallAreaTechinicals.Count-1;
+
     }
 
     
@@ -82,22 +89,34 @@ public class GameManager : MonoBehaviour
     public void BallCount()
     {
         pointBallCount++;
-        _BallAreaTechinicals[0].numberText.text = pointBallCount + "/" + _BallAreaTechinicals[0].needBall;
+        _BallAreaTechinicals[currentCheckPointIndex].numberText.text = pointBallCount + "/" + _BallAreaTechinicals[currentCheckPointIndex].needBall;
         
     }
 
     void LevelControl()
     {
-        if (pointBallCount >= _BallAreaTechinicals[0].needBall)
+        if (pointBallCount >= _BallAreaTechinicals[currentCheckPointIndex].needBall)
         {
-            Debug.Log("Kazandın");
             
-            _BallAreaTechinicals[0].ballAreaElevator.Play("Elevator");
+            
+            _BallAreaTechinicals[currentCheckPointIndex].ballAreaElevator.Play("Elevator");
 
-            foreach (var item in _BallAreaTechinicals[0].balls)
+            foreach (var item in _BallAreaTechinicals[currentCheckPointIndex].balls)
             {
                 item.SetActive(false);
             }
+
+            if (currentCheckPointIndex == checkPointCount)
+            {
+                Debug.Log("Game Over");
+                Time.timeScale = 0;
+            }
+            else
+            {
+                currentCheckPointIndex++; 
+                pointBallCount = 0;
+            }
+            
         } 
         else
         {
