@@ -18,6 +18,9 @@ public class BallAreaTechinical
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject pickerObject;
+    [SerializeField] private GameObject[] pickerPaletObject;
+    [SerializeField] private GameObject[] bonusBalls;
+    private bool paletThereIs;
     [SerializeField] private GameObject ballControlObject;
 
     [SerializeField] public bool pickerMoveCase;
@@ -67,9 +70,25 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void PaletIsActive()
+    {
+        paletThereIs = true;
+        pickerPaletObject[0].SetActive(true);
+        pickerPaletObject[1].SetActive(true);
+    }
+
+    public void BonusBallAdd(int bonusBallIndex)
+    {
+        bonusBalls[bonusBallIndex].SetActive(true);
+    }
 
     public void BorderIsComing()
     {
+        if (paletThereIs)
+        {
+            pickerPaletObject[0].SetActive(false);
+            pickerPaletObject[1].SetActive(false);
+        }
         pickerMoveCase = false;
         
         Invoke("LevelControl",2f);
@@ -115,6 +134,11 @@ public class GameManager : MonoBehaviour
             {
                 currentCheckPointIndex++; 
                 pointBallCount = 0;
+                if (paletThereIs)
+                {
+                    pickerPaletObject[0].SetActive(true);
+                    pickerPaletObject[1].SetActive(true);
+                }
             }
             
         } 
